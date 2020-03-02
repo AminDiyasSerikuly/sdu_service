@@ -98,6 +98,7 @@ return [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
+            'rbac/*'
         ]
     ],
 

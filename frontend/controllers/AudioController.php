@@ -211,7 +211,7 @@ class AudioController extends Controller
         if ($book->format == Book::MP4) {
             $format = '.mp4';
         }
-        $sortUrl = 'audio/' . htmlspecialchars_decode($book->name) . '/';
+        $sortUrl = 'audio/' . htmlspecialchars_decode($book->name) ;
 
         switch ($book->dir_name) {
             case Book::TYPE_ID_USERNAME:
