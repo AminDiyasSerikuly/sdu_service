@@ -25,11 +25,11 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <?php $this->beginBody() ?>
 <?php $this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css'); ?>
+<?php $this->registerCssFile('/backend/web/dashboard/vendor/fontawesome-free/css/all.css'); ?>
 
 <!-- Bootstrap core JavaScript-->
 <?php $this->registerJsFile('/backend/web/dashboard/vendor/jquery/jquery.min.js'); ?>
