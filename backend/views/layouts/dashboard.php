@@ -29,7 +29,7 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <?php $this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css'); ?>
-<?php $this->registerCssFile('/backend/web/dashboard/vendor/fontawesome-free/css/all.min.css'); ?>
+<?php $this->registerCssFile('/backend/web/dashboard/vendor/fontawesome-free/css/all.css'); ?>
 
 <!-- Bootstrap core JavaScript-->
 <?php $this->registerJsFile('/backend/web/dashboard/vendor/jquery/jquery.min.js'); ?>

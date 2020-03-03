@@ -27,7 +27,7 @@ AppAsset::register($this);
           rel="stylesheet">
 
     <?php $this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css'); ?>
-    <?php $this->registerCssFile('/backend/dashboard/vendor/fontawesome-free/css/all.css'); ?>
+<!--    --><?php //$this->registerCssFile('/backend/dashboard/vendor/fontawesome-free/css/all.css'); ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
