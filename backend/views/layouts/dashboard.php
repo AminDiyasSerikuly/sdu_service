@@ -61,7 +61,7 @@ AppAsset::register($this);
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="<?= \yii\helpers\Url::to(['/site/index']) ?>">
+           href="<?= \yii\helpers\Url::to(['/site/dash-board']) ?>">
             <div class="sidebar-brand-text mx-3">
                 <img src="https://moodle.sdu.edu.kz/pluginfile.php/1/theme_moove/logo/1582111407/moodle-logo-white.png"
                      alt="" style="width: 50%; height: 50%;">

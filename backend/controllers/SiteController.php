@@ -89,8 +89,7 @@ class SiteController extends Controller
      */
     public function actionDashBoard()
     {
-//        $this->layout = 'dashboard';
-//        return $this->render('dashboard');
+        return $this->redirect(Yii::$app->urlManagerFrontend->createUrl('/site/'));
     }
 
     /**
@@ -126,4 +125,5 @@ class SiteController extends Controller
         Yii::$app->user->logout();
         return $this->redirect(Yii::$app->urlManagerFrontend->createUrl('/'));
     }
+
 }

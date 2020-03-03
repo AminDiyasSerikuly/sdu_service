@@ -8,7 +8,7 @@ use dosamigos\fileupload\FileUploadUI;
 /* @var $model app\models\Book */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css');
+//$this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css');
 ?>
 <div class="card">
     <div class="book-form card-body">
@@ -58,6 +58,14 @@ $this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css');
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+<style>
+    .fade:not(.show) {
+        opacity: unset;
+    }
 
-<?php $this->registerCssFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');?>
+    .progress-striped {
+        background-color: white !important;
+    }
+</style>
+<?php //$this->registerCssFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');?>
 

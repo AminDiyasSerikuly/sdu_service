@@ -59,6 +59,7 @@ AppAsset::register($this);
                 <?= Html::a('Регистрация', Url::to(['/site/signup']), ['class' => 'btn btn-button']) ?>
                 <?= Html::a('Вход', Url::to(['/site/login']), ['class' => 'btn btn-button']) ?>
             <?php else: ?>
+                <?php echo Html::a('Панель управление', '/admin', ['class' => 'btn btn']) ?>
                 <?php echo Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
                         '<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>' . 'Выход',

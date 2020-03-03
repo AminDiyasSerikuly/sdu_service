@@ -219,7 +219,11 @@ class BookController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if ($this->findModel($id)->delete()) {
+            Yii::$app->session->setFlash('success', 'Книга успешно удалена');
+        } else {
+            Yii::$app->session->setFlash('danger', 'Упс, произошла ошибка!');
+        }
 
         return $this->redirect(['index']);
     }
@@ -326,7 +330,12 @@ class BookController extends Controller
         $zipArray = $this->archiveFile($id, true);
         $this->zip_force_download($zipArray['zipName'], $zipArray['zipPath']);
 
+    }
 
+    public function actionRecordAudio()
+    {
+        $id = Yii::$app->request->get('id');
+        return $this->redirect(Yii::$app->urlManagerFrontend->createUrl('/audio/record-audio' . '?id=' . $id));
     }
 
     /* return array  [zipName, zipPath] */

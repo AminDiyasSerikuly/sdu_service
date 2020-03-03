@@ -22,10 +22,6 @@ $is_admin = $is_admin ? $is_admin->role : null;
             <?= Html::a('Добавить книги', Url::toRoute(['book/create']), ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <!--    <div class="card">-->
-    <!--        <div class="card-body">-->
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -76,17 +72,17 @@ $is_admin = $is_admin ? $is_admin->role : null;
                                 Html::tag('span', '', ['class' => 'fas fa-trash', 'style' => 'color:red;']),
                                 ['class' => 'btn btn-default']
                             ),
-                            Url::to($linkTo),['data-confirm' => "Are you sure you want to delete this item?", 'data-method' => "post"]);
+                            Url::to($linkTo), ['data-confirm' => "Are you sure you want to delete this item?", 'data-method' => "post"]);
                     },
-                    'update' => function ($url, $model, $key) {
-                        $linkTo = '/book/update?id=' . $model->id;
-                        return Html::a(
-                            Html::button(
-                                Html::tag('span', '', ['class' => 'fas fa-edit', 'style' => 'color:blue;']),
-                                ['class' => 'btn btn-default']
-                            ),
-                            Url::to($linkTo));
-                    }
+//                    'update' => function ($url, $model, $key) {
+//                        $linkTo = '/book/update?id=' . $model->id;
+//                        return Html::a(
+//                            Html::button(
+//                                Html::tag('span', '', ['class' => 'fas fa-edit', 'style' => 'color:blue;']),
+//                                ['class' => 'btn btn-default']
+//                            ),
+//                            Url::to($linkTo));
+//                    }
                 ],
             ],
         ],

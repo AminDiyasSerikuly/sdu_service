@@ -14,10 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <!---->
+    <!--    <p>-->
+    <!--        <span>-->
+    <? //= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success', 'style' => 'pointer-events: none;color:gray;']) ?><!--</span>-->
+    <!--    </p>-->
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -51,7 +52,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            'role',
+            [
+                'attribute' => 'role',
+                'value' => function ($model) {
+                    $role = !empty(Yii::$app->authManager->getAssignments($model->id)) ?
+                        (array_values(Yii::$app->authManager->getAssignments($model->id)))[0]->roleName : NULL;
+                    if ($role) {
+                        return Html::tag('span', $role, ['claass' => 'badge badge-pill badge-primary']);
+                    } else {
+                        return 'Не задано';
+                    }
+
+                },
+                'filter' => false,
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'created_at',
                 'format' => 'date',

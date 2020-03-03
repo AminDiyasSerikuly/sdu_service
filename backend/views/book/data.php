@@ -15,9 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
         audiojs.createAll();
     });
 </script>
-
 <h1><?= Html::encode($this->title) ?></h1>
-
+<div>
+    <div class="text-right" style="margin-bottom: 10px;color: white;">
+        <a class="btn btn-success"
+           href="<?= Url::to(['/book/record-audio', 'id' => Yii::$app->request->get('id')]) ?>">
+            Просмотр книги
+        </a>
+    </div>
+</div>
 <div class="card">
     <div class="card-header">
         <div class="row" style="font-weight: bold;">
