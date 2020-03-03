@@ -70,13 +70,13 @@ $is_admin = $is_admin ? $is_admin->role : null;
                             , Url::to($linkTo));
                     },
                     'delete' => function ($url, $model, $key) {
-                        $linkTo = '/book/delete?id=' . $model->id;
+                        $linkTo = ['book/delete', 'id' => $model->id];
                         return Html::a(
                             Html::button(
                                 Html::tag('span', '', ['class' => 'fas fa-trash', 'style' => 'color:red;']),
                                 ['class' => 'btn btn-default']
                             ),
-                            Url::to($linkTo));
+                            Url::to($linkTo),['data-confirm' => "Are you sure you want to delete this item?", 'data-method' => "post"]);
                     },
                     'update' => function ($url, $model, $key) {
                         $linkTo = '/book/update?id=' . $model->id;
