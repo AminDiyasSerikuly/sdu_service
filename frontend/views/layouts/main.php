@@ -38,7 +38,7 @@ AppAsset::register($this);
     <!--    <script src="https://use.fontawesome.com/6e644806a3.js"></script>-->
 
     <?php $this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css'); ?>
-    <?php $this->registerCssFile('/backend/dashboard/vendor/fontawesome-free/css/all.min.css'); ?>
+    <?php $this->registerCssFile('/backend/dashboard/vendor/fontawesome-free/css/all.css'); ?>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

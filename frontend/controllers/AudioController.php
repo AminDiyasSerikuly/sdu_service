@@ -211,7 +211,7 @@ class AudioController extends Controller
         if ($book->format == Book::MP4) {
             $format = '.mp4';
         }
-        $sortUrl =   'audio/' . htmlspecialchars_decode($book->name) . DIRECTORY_SEPARATOR;
+        $sortUrl = 'audio/' . htmlspecialchars_decode($book->name) . '/';
 
         switch ($book->dir_name) {
             case Book::TYPE_ID_USERNAME:
@@ -240,7 +240,7 @@ class AudioController extends Controller
         $fp = fopen($txtFilePath, "wb");
         fwrite($fp, $book_sentences->body);
         fclose($fp);
-        chmod($txtFilePath, 0777);
+        chmod($txtFilePath, 0777);  
 
         /** @var Audio $audio */
         /** @var Audio $isThereCheck */
