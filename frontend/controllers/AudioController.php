@@ -114,8 +114,13 @@ class AudioController extends Controller
             Yii::$app->session->setFlash('danger', 'Книга не найдена!');
         }
         $bookFiles = BookFiles::find()->where(['book_id' => $id])->one();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $model->created_at = date();
+                $model->updated_at = date();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         $sentences = BookSentences::find()->where(['book_id' => $id, 'is_deleted' => false])->all();
@@ -240,7 +245,7 @@ class AudioController extends Controller
         $fp = fopen($txtFilePath, "wb");
         fwrite($fp, $book_sentences->body);
         fclose($fp);
-        chmod($txtFilePath, 0777);  
+        chmod($txtFilePath, 0777);
 
         /** @var Audio $audio */
         /** @var Audio $isThereCheck */

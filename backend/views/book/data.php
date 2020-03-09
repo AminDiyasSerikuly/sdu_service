@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 <div class="col-sm-3 text-center">
-                    <span class="badge badge-pill badge-success"> <?= date('d-m-Y H:i:s', $sentence->created_at) ?></span>
+                    <span class="badge badge-pill badge-success"> <?= date('d-m-Y H:i:s', $sentence->audio->created_at) ?></span>
                 </div>
                 <div class="col-sm-2">
                     <a href="<?= Url::to(['/book/data-download-single', 'id' => $sentence->id]) ?> "
