@@ -106,6 +106,7 @@ class BookController extends Controller
                 }
                 $order_num = 0;
                 foreach ($splittedText as $text) {
+                    $text = mb_ereg_replace("[^A-Za-zА-Яа-я+әіңғүұқөһ+ӘІҢҒҮҰҚӨҺ/\s/-]", "", $text);
                     $bookSentences = new BookSentences();
                     $bookSentences->book_id = $model->id;
                     $bookSentences->body = $text;
@@ -114,7 +115,6 @@ class BookController extends Controller
                     $bookSentences->save(false);
                     $order_num += 1;
                 }
-
                 $transaction->commit();
             } catch (\Exception $e) {
                 $transaction->rollBack();

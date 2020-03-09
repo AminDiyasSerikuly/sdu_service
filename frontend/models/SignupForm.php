@@ -15,6 +15,7 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $password_repeat;
+    public $gender;
 
 
     /**
@@ -24,10 +25,9 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            [['username', 'gender'], 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
-
             ['email', 'trim'],
 //            ['email', 'required'],
 //            ['email', 'email'],
@@ -60,7 +60,9 @@ class SignupForm extends Model
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
+            $user->gender = $this->gender;
             $user->save(false);
+
 
             $auth = Yii::$app->authManager;
             $authorRole = $auth->getRole('student');
@@ -81,6 +83,7 @@ class SignupForm extends Model
             'email' => 'Электронная почта',
             'password' => 'Пароль',
             'password_repeat' => 'Повторите поороль',
+            'gender' => 'Выберите пол',
         ];
     }
 

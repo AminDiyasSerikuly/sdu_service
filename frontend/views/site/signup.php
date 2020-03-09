@@ -5,6 +5,7 @@
 
 /* @var $model \frontend\models\SignupForm */
 
+use common\models\User;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
@@ -12,29 +13,6 @@ use yii\helpers\Url;
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!--<div class="site-signup">-->
-<!--    <h1>--><? //= Html::encode($this->title) ?><!--</h1>-->
-<!---->
-<!--    <p>Please fill out the following fields to signup:</p>-->
-<!---->
-<!--    <div class="row">-->
-<!--        <div class="col-lg-5">-->
-<!--            --><?php //$form = ActiveForm::begin(['id' => 'form-signup']); ?>
-<!---->
-<!--                --><? //= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-<!---->
-<!--                --><? //= $form->field($model, 'email') ?>
-<!---->
-<!--                --><? //= $form->field($model, 'password')->passwordInput() ?>
-<!---->
-<!--                <div class="form-group">-->
-<!--                    --><? //= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-<!--                </div>-->
-<!---->
-<!--            --><?php //ActiveForm::end(); ?>
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <div class="card o-hidden border-0 shadow-lg my-5">
     <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
@@ -62,19 +40,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]) ?>
                         </div>
                     </div>
-<!--                    <div class="form-group">-->
-<!--                        --><?//= $form->field($model, 'email')->textInput([
-//                            'type' => 'email',
-//                            'class' => 'form-control form-control-user',
-//                            'id' => 'exampleInputEmail',
-//                            'placeholder' => 'Email Address',
-//                        ]) ?>
-<!--                    </div>-->
 
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <!--                            <input type="password" class="form-control form-control-user" id="exampleInputPassword"-->
-                            <!--                                   placeholder="Password">-->
+                            <?= $form->field($model, 'gender',
+                                ['wrapperOptions' => ['style' => 'display:inline-block;']])
+                                ->inline(true)->radioList([
+                                    User::MALE => 'Мужчина',
+                                    User::FEMALE => 'Женщина',
+                                ], ['separator' => '   ']); ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
                             <?= $form->field($model, 'password')->passwordInput(
                                 [
                                     'type' => 'password',
@@ -110,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php ActiveForm::end(); ?>
                     <hr>
                     <div class="text-center">
-                        <a class="small" href="<?= Url::to(['/site/login'])?>">Уже зарегистрированы? Вход!</a>
+                        <a class="small" href="<?= Url::to(['/site/login']) ?>">Уже зарегистрированы? Вход!</a>
                     </div>
                 </div>
             </div>

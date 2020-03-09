@@ -32,7 +32,7 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
         <div class="alert alert-warning">
             <strong>Для записи аудио нажмите на микрофон и записывайте аудио. <br>
                 Для сохранение аудио и показа следующего текста нажмите на стрелку на право..</strong>
-            <strong class="float-right">Осталось приложение: <?= count($sentences); ?></strong>
+            <strong class="float-right">Осталось приложении: <?= count($sentences); ?></strong>
         </div>
     <?php endif; ?>
     <div class="card-header">
@@ -312,11 +312,11 @@ $('#right-button').click(function(){
         error = true;
     }
     if(!error){
-        var minimum  = Object.keys(sentences)[0];
-        var maximum = Object.keys(sentences).length;
-        var randomnumber = Math.floor(Math.random() * (maximum - 1));
-        var randomValue = Object.keys(sentences)[randomnumber];
-        $('#text-self').text(sentences[randomValue]);
+    //     var minimum  = Object.keys(sentences)[0];
+    //     var maximum = Object.keys(sentences).length;
+    //     var randomnumber = Math.floor(Math.random() * (maximum - 1));
+    //     var randomValue = Object.keys(sentences)[randomnumber];
+    //     $('#text-self').text(sentences[randomValue]);
     }
   
 
