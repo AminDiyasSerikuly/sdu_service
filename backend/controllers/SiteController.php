@@ -88,6 +88,7 @@ class SiteController extends Controller
         $allSentences = BookSentences::find()->count();
         $readSentencesCount = BookSentences::find()->where(['is_deleted' => true])->count();
         $sizeAudioText = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/audio')));
+        $sizeBook = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/img/image_uploads')));
 
         return $this->render('information', [
             'allBookCount' => $allBookCount,
@@ -95,6 +96,7 @@ class SiteController extends Controller
             'allSentences' => $allSentences,
             'readSentencesCount' => $readSentencesCount,
             'sizeAudioText' => $sizeAudioText,
+            'sizeBook' => $sizeBook,
         ]);
     }
 
