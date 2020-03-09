@@ -6,6 +6,8 @@ use common\models\BookSentences;
 use common\models\User;
 use common\models\Book;
 use common\models\BookFiles;
+use DateTime;
+use DateTimeZone;
 use Yii;
 use common\models\Audio;
 use common\models\AudioSearch;
@@ -115,8 +117,9 @@ class AudioController extends Controller
         }
         $bookFiles = BookFiles::find()->where(['book_id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
-            $model->created_at = date();
-            $model->updated_at = date();
+            $date = new DateTime("now", new DateTimeZone('Asia/Almaty'));
+            $model->created_at = $date->format('Y-m-d H:i:s');
+            $model->updated_at = $date->format('Y-m-d H:i:s');
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

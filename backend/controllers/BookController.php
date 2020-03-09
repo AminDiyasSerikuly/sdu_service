@@ -5,6 +5,8 @@ namespace backend\controllers;
 use common\models\BookSentences;
 use common\models\User;
 use common\models\BookFiles;
+use DateTime;
+use DateTimeZone;
 use http\Exception;
 use Yii;
 use common\models\Book;
@@ -311,7 +313,7 @@ class BookController extends Controller
         $model = $this->findModel($id);
         $sentences = BookSentences::find()->where(['book_sentences.book_id' => $id])
             ->andWhere(['is_deleted' => true])
-            ->with('audio')->all();
+            ->with('audio')->orderBy('book_sentences.created_at')->all();
         return $this->render('data', [
             'sentences' => $sentences,
         ]);
