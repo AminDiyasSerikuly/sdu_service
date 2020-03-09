@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Audio;
 use common\models\BookSentences;
 use common\models\User;
 use common\models\BookFiles;
@@ -313,9 +314,13 @@ class BookController extends Controller
         $model = $this->findModel($id);
         $sentences = BookSentences::find()->where(['book_sentences.book_id' => $id])
             ->andWhere(['is_deleted' => true])
-            ->with('audio')->orderBy('book_sentences.created_at')->all();
+            ->innerJoinWith('audio')->orderBy(['audio.created_at' => SORT_DESC])->all();
+
+        $wholeSentences = BookSentences::find()->where(['book_sentences.book_id' => $id])->all();
+
         return $this->render('data', [
             'sentences' => $sentences,
+            'wholeSentences' => $wholeSentences,
         ]);
     }
 

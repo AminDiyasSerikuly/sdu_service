@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -18,20 +19,6 @@ use yii\db\ActiveRecord;
 class Audio extends \yii\db\ActiveRecord
 {
 
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-                // если вместо метки времени UNIX используется datetime:
-                // 'value' => new Expression('NOW()'),
-            ],
-        ];
-    }
 
     /**
      * {@inheritdoc}
@@ -49,7 +36,7 @@ class Audio extends \yii\db\ActiveRecord
         return [
             [['created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['user_id','sub_id', 'sentences_id'] , 'safe'],
+            [['user_id', 'sub_id', 'sentences_id'], 'safe'],
         ];
     }
 
@@ -65,7 +52,9 @@ class Audio extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
-    public function getUser(){
-        return $this->hasOne(User::className() , ['id' => 'user_id']);
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

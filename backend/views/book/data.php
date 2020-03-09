@@ -5,7 +5,14 @@ use common\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+/** @var BookSentences $wholeSentences */
+$readSentences = count($sentences);
+$wholeSentences = count($wholeSentences);
+$restSentences = ($wholeSentences - $readSentences);
 $this->title = 'Книги';
+if ($restSentences == 0) {
+    $this->title = 'Книги полностью прочитано';
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <script src="/js/audiojs/audio.min.js">
@@ -15,7 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
         audiojs.createAll();
     });
 </script>
-<h1><?= Html::encode($this->title) ?></h1>
+<h1 class="<?= !$restSentences ? 'text-success' : '' ?>"><?= Html::encode($this->title) ?></h1>
+<div>
+    <span class="badge badge-primary">Все: <?= $wholeSentences ?></span>
+    <span class="badge badge-success">Прочитано: <?= $readSentences ?></span>
+    <span class="badge badge-warning">Осталось: <?= $restSentences ?></span>
+</div>
 <div>
     <div class="text-right" style="margin-bottom: 10px;color: white;">
         <a class="btn btn-success"

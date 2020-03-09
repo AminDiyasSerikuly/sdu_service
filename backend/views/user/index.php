@@ -68,6 +68,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
             [
+                'attribute' => 'gender',
+                'value' => function ($model) {
+                    return '<span class="badge ' . ($model->gender ? 'badge-primary' : 'badge-warning') . '">' . ($model->gender ? 'Мужчина' : 'Женщина') . '</span>';
+                },
+                'label' => 'Пол',
+                'format' => 'raw',
+            ],
+            [
                 'attribute' => 'created_at',
                 'format' => 'date',
                 'filter' => false,

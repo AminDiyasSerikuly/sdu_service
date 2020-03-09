@@ -117,9 +117,6 @@ class AudioController extends Controller
         }
         $bookFiles = BookFiles::find()->where(['book_id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
-            $date = new DateTime("now", new DateTimeZone('Asia/Almaty'));
-            $model->created_at = $date->format('Y-m-d H:i:s');
-            $model->updated_at = $date->format('Y-m-d H:i:s');
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -255,12 +252,15 @@ class AudioController extends Controller
         $output = $sortUrl . $audioName;
         $isThereCheck = Audio::find()->where(['book_id' => $book_id, 'sub_id' => $sub_id])->one();
         if (move_uploaded_file($input, $output) && chmod($output, 0777)) {
+            $date = new DateTime("now", new DateTimeZone('Asia/Almaty'));
             if (!$isThereCheck) {
                 $audio->name = $book->name . '/' . $audioName;
                 $audio->sub_id = $sub_id;
                 $audio->book_id = $book_id;
                 $audio->user_id = Yii::$app->user->id;
                 $audio->sentences_id = $book_sentences->id;
+                $audio->created_at = strtotime($date->format('Y-m-d H:i:s'));
+                $audio->updated_at = strtotime($date->format('Y-m-d H:i:s'));
                 if ($audio->save()) {
                     $boolean = true;
                 };
@@ -269,6 +269,7 @@ class AudioController extends Controller
                 $isThereCheck->sub_id = $sub_id;
                 $isThereCheck->book_id = $book_id;
                 $isThereCheck->user_id = Yii::$app->user->id;
+                $isThereCheck->updated_at = strtotime($date->format('Y-m-d H:i:s'));
 
                 $isThereCheck->sentences_id = $book_sentences->id;
                 if ($isThereCheck->save()) {

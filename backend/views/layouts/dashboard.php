@@ -49,8 +49,6 @@ AppAsset::register($this);
 <?php $this->registerJsFile('/backend/web/dashboard/js/demo/chart-pie-demo.js'); ?>
 
 
-
-
 <body id="page-top">
 
 <!-- Page Wrapper -->
@@ -429,3 +427,15 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+<style>
+    .pagination > li > a, .pagination > li span {
+        font-size: 90%;
+        padding: 0.7rem;
+        border: 0.3px solid lightblue;
+        text-decoration: none;
+    }
+
+    .pagination > li a:hover, .pagination > li span:hover {
+        background-color: lightblue;
+    }
+</style>
