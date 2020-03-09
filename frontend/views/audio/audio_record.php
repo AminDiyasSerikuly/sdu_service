@@ -16,6 +16,7 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
     });
 </script>
 <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
 <div class="card">
     <?php if (Yii::$app->session->hasFlash('success')): ?>
         <div class="alert alert-success">
@@ -38,6 +39,12 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
         <?php if (count($sentences) != 0): ?>
             <div class="pool">
                 <div class="text-area text-center">
+                    <div id="show_load" class="d-none">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem; color: yellow" role="status">
+                        </div>
+                        <div class="text-center text-warning"> Loading...</div>
+                    </div>
+
                     <p class="text-self" id="text-self" style="font-size: 130%;">
                     </p>
                 </div>
@@ -66,6 +73,12 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
                 </div>
             </div>
         <?php endif ?>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+            <span class="fa fa-spinner fa-spin fa-3x"></span>
+        </div>
     </div>
 </div>
 <input type="hidden" value="<?= Yii::$app->request->get('id'); ?>" id="book_id">
@@ -297,6 +310,13 @@ function getAudios(){
         }
     });
 }
+              function modal(){
+    $('.modal').modal('show');
+        setTimeout(function () {
+       	console.log('completed');
+       	$('.modal').modal('hide');
+    }, 3000);
+}
 $('#right-button').click(function(){
     hide_current_audio.hide();
     var countSplittedText = $("#count_splitted_text").val();
@@ -309,8 +329,10 @@ $('#right-button').click(function(){
     catch (e) {
         alert('Чтобы перейти на следующий текст необходимо записать аудио на текущий');
         error = true;
+        modal();
     }
     if(!error){
+        $('#show_load').removeClass('d-none');
     }
   
 

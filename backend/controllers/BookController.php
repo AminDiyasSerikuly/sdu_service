@@ -85,7 +85,8 @@ class BookController extends Controller
     {
         $model = new Book();
         $user = User::find()->where(['id' => Yii::$app->user->getId()]);
-        if ($model->load(Yii::$app->request->post())) {
+        $post = Yii::$app->request->post();
+        if ($model->load($post)) {
             $errorFix = false;
             $model->is_read = false;
             $transaction = Yii::$app->db->beginTransaction();
@@ -99,6 +100,9 @@ class BookController extends Controller
                         $book_files->book_id = $model->id;
                         $book_files->save();
                     }
+                } else {
+                    Yii::$app->session->setFlash('danger', $model->errors['name'][0]);
+                    return $this->redirect(Yii::$app->request->referrer);
                 }
                 $book_file = BookFiles::find()->where(['book_id' => $model->id])->one();
 
@@ -332,7 +336,7 @@ class BookController extends Controller
             Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
             return $this->redirect(Yii::$app->request->referrer);
         }
-        
+
         $this->zip_force_download($zipArray['zipName'], $zipArray['zipPath']);
     }
 

@@ -63,6 +63,7 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'dir_name', 'format'], 'required'],
+            ['name', 'unique'],
             [['created_at', 'updated_at'], 'integer'],
             [['is_read', 'read_percentage'], 'safe'],
             [['name'], 'string', 'max' => 100],

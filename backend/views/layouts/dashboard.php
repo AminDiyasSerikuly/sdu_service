@@ -438,4 +438,13 @@ AppAsset::register($this);
     .pagination > li a:hover, .pagination > li span:hover {
         background-color: lightblue;
     }
+
+    .help-block-error {
+        color: red;
+    }
+
+    .help-block {
+        color: red;
+    }
+
 </style>
