@@ -328,6 +328,11 @@ class BookController extends Controller
     {
         $id = Yii::$app->request->get('id');
         $zipArray = $this->archiveFile($id);
+        if (!$zipArray) {
+            Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+        
         $this->zip_force_download($zipArray['zipName'], $zipArray['zipPath']);
     }
 
@@ -335,6 +340,10 @@ class BookController extends Controller
     {
         $id = Yii::$app->request->get('id');
         $zipArray = $this->archiveFile($id, true);
+        if (!$zipArray) {
+            Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
+            return $this->redirect(Yii::$app->request->referrer);
+        }
         $this->zip_force_download($zipArray['zipName'], $zipArray['zipPath']);
 
     }
@@ -350,15 +359,21 @@ class BookController extends Controller
     private function archiveFile($id, $single = false)
     {
         /** @var BookSentences $sentence */
+        /** @var Book $book */
         $array = [];
         if ($single) {
             $sentence = BookSentences::find()->where(['id' => $id])->one();
             if (!$sentence) {
-                Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
-                $this->redirect(Yii::$app->request->referrer);
+                return false;
             }
             $id = $sentence->book ? $sentence->book->id : null;
+        } else {
+            $book_sentences = BookSentences::find()->where(['book_id' => $id, 'is_deleted' => true])->one();
+            if (!isset($book_sentences)) {
+                return false;
+            }
         }
+
 
         $dir_name = Book::find()->where(['id' => $id])->one();
         $dir_name = $dir_name ? $dir_name->name : '';

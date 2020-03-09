@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'age',
                 'value' => function ($model) {
-                    return $model->age;
+                    return $model->age . '&nbsp;' .'лет';
                 },
                 'label' => 'Возраст',
                 'format' => 'raw',

@@ -61,11 +61,25 @@ class SiteController extends Controller
      *
      * @return string
      */
+
+
     private function convert($size)
     {
         $unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
         return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
     }
+
+    private function folderSize($dir)
+    {
+        $size = 0;
+
+        foreach (glob(rtrim($dir, '/') . '/*', GLOB_NOSORT) as $each) {
+            $size += is_file($each) ? filesize($each) : $this->folderSize($each);
+        }
+
+        return $size;
+    }
+
 
     public function actionIndex()
     {
@@ -73,12 +87,14 @@ class SiteController extends Controller
         $readBookCount = Book::find()->where(['is_read' => true])->count();
         $allSentences = BookSentences::find()->count();
         $readSentencesCount = BookSentences::find()->where(['is_deleted' => true])->count();
+        $sizeAudioText = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/audio')));
 
         return $this->render('information', [
             'allBookCount' => $allBookCount,
             'readBookCount' => $readBookCount,
             'allSentences' => $allSentences,
             'readSentencesCount' => $readSentencesCount,
+            'sizeAudioText' => $sizeAudioText,
         ]);
     }
 
