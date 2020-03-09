@@ -120,7 +120,6 @@ class AudioController extends Controller
             $date = new DateTime("now", new DateTimeZone('Asia/Almaty'));
             $model->created_at = $date->format('Y-m-d H:i:s');
             $model->updated_at = $date->format('Y-m-d H:i:s');
-            var_dump($date->format('Y-m-d H:i:s'));
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
