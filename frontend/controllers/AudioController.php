@@ -115,9 +115,9 @@ class AudioController extends Controller
         }
         $bookFiles = BookFiles::find()->where(['book_id' => $id])->one();
         if ($model->load(Yii::$app->request->post())) {
+            $model->created_at = date();
+            $model->updated_at = date();
             if ($model->save()) {
-                $model->created_at = date();
-                $model->updated_at = date();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
