@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 text-center">
                     <div id="" class="audio text-center align-middle">
                         <audio preload="auto">
-                            <source src="<?= '/frontend/web/audio' . DIRECTORY_SEPARATOR . $sentence->audio->name ?>">
+                            <source src="<?= '/audio' . DIRECTORY_SEPARATOR . $sentence->audio->name ?>">
                         </audio>
                     </div>
                 </div>
