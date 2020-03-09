@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row justify-content-center site-login">
     <div class="col-xl-10 col-lg-12 col-md-9">
-<!--        <h1>--><?//= Html::encode($this->title) ?><!--</h1>-->
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <div class="row">
@@ -34,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= $form->field($model, 'username')->textInput(
                                     [
                                         'autofocus' => true,
-//                                        'type' => 'email',
                                         'class' => 'form-control form-control-user',
                                         'id' => 'exampleInputEmail',
                                         'aria-describedby' => 'emailHelp',
@@ -51,12 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]
                                 ); ?>
                             </div>
-<!--                            <div class="form-group">-->
-<!--                                <div class="custom-control custom-checkbox small">-->
-<!--                                    <input type="checkbox" class="custom-control-input" id="customCheck">-->
-<!--                                    <label class="custom-control-label" for="customCheck">Remember Me</label>-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <?= Html::submitButton('Вход', [
                                 'class' => 'btn btn-primary btn-user btn-block'
                             ]) ?>
@@ -70,9 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             </a>
                             <?php ActiveForm::end(); ?>
                             <hr>
-<!--                            <div class="text-center">-->
-<!--                                <a class="small" href="forgot-password.html">Forgot Password?</a>-->
-<!--                            </div>-->
                             <div class="text-center">
                                 <a class="small" href="<?= Url::to(['/site/signup']) ?>">Создать аккаунт!</a>
                             </div>
@@ -83,3 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<style>
+    .help-block-error {
+        color: red;
+    }
+</style>
+

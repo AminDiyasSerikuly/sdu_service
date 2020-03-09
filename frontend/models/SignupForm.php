@@ -16,6 +16,7 @@ class SignupForm extends Model
     public $password;
     public $password_repeat;
     public $gender;
+    public $age;
 
 
     /**
@@ -29,6 +30,8 @@ class SignupForm extends Model
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
+            ['age', 'required'],
+            ['age', 'integer', 'max' => 100],
 //            ['email', 'required'],
 //            ['email', 'email'],
             ['email', 'string', 'max' => 255],
@@ -61,6 +64,7 @@ class SignupForm extends Model
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
             $user->gender = $this->gender;
+            $user->age = $this->age;
             $user->save(false);
 
 
@@ -84,6 +88,7 @@ class SignupForm extends Model
             'password' => 'Пароль',
             'password_repeat' => 'Повторите поороль',
             'gender' => 'Выберите пол',
+            'age' => 'Возраст'
         ];
     }
 

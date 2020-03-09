@@ -50,6 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     User::FEMALE => 'Женщина',
                                 ], ['separator' => '   ']); ?>
                         </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <?= $form->field($model, 'age')->textInput(); ?>
+                        </div>
                     </div>
 
                     <div class="form-group row">
@@ -96,5 +99,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<style>
+    .help-block-error {
+        color: red;
+    }
+</style>
 
 

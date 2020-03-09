@@ -76,6 +76,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
             [
+                'attribute' => 'age',
+                'value' => function ($model) {
+                    return $model->age;
+                },
+                'label' => 'Возраст',
+                'format' => 'raw',
+            ],
+            [
                 'attribute' => 'created_at',
                 'format' => 'date',
                 'filter' => false,

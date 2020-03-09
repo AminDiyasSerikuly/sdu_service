@@ -8,7 +8,6 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
 
 ?>
 <script src="/js/audiojs/audio.min.js">
-
 </script>
 
 <script>
@@ -312,11 +311,6 @@ $('#right-button').click(function(){
         error = true;
     }
     if(!error){
-    //     var minimum  = Object.keys(sentences)[0];
-    //     var maximum = Object.keys(sentences).length;
-    //     var randomnumber = Math.floor(Math.random() * (maximum - 1));
-    //     var randomValue = Object.keys(sentences)[randomnumber];
-    //     $('#text-self').text(sentences[randomValue]);
     }
   
 
