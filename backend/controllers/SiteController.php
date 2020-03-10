@@ -83,13 +83,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        return ini_get('memory_limit');
+        die();
         $allBookCount = Book::find()->count();
         $readBookCount = Book::find()->where(['is_read' => true])->count();
         $allSentences = BookSentences::find()->count();
         $readSentencesCount = BookSentences::find()->where(['is_deleted' => true])->count();
         $sizeAudioText = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/audio')));
         $sizeBook = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/img/image_uploads')));
-
         return $this->render('information', [
             'allBookCount' => $allBookCount,
             'readBookCount' => $readBookCount,
