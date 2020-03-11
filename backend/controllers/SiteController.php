@@ -83,8 +83,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return ini_get('memory_limit');
-        die();
         $allBookCount = Book::find()->count();
         $readBookCount = Book::find()->where(['is_read' => true])->count();
         $allSentences = BookSentences::find()->count();
