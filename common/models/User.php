@@ -23,7 +23,9 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $age
+ * @property integer $read_sentences
  * @property string $password write-only password
+ * @var Audio audio
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -220,9 +222,15 @@ class User extends ActiveRecord implements IdentityInterface
             'username' => 'имя пользователя',
             'status' => 'статус',
             'role' => 'роль',
+            'read_sentences' => 'Кол-во прочитанных приложении',
             'created_at' => 'дата создание',
             'updated_at' => 'дата изменение'
 
         ];
+    }
+
+    public function getAudio()
+    {
+        return $this->hasMany(Audio::className(), ['user_id' => 'id']);
     }
 }

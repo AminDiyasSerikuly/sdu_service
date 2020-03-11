@@ -45,12 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-sm-4">
                 Аудиозапись
             </div>
-            <div class="col-sm-3 text-center">
+            <div class="col-sm-2 text-center">
                 Дата создание
             </div>
             <div class="col-sm-2">
                 <a href="<?= Url::to(['/book/data-download', 'id' => Yii::$app->request->get('id')]); ?>"
                    class="text-decoration-none">Скачать все &nbsp; <i class="fas fa-download"></i></a>
+            </div>
+            <div class="col-sm-1">
+
             </div>
         </div>
     </div>
@@ -72,13 +75,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         </audio>
                     </div>
                 </div>
-                <div class="col-sm-3 text-center">
+                <div class="col-sm-2 text-center">
                     <span class="badge badge-pill badge-success"> <?= date('d-m-Y H:i:s', $sentence->audio->created_at) ?></span>
                 </div>
                 <div class="col-sm-2">
                     <a href="<?= Url::to(['/book/data-download-single', 'id' => $sentence->id]) ?> "
                        class="badge badge-pill badge-primary" style="cursor: pointer;">
                         Скачать &emsp; <i class="fas fa-download"></i>
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                    <a href="<?= Url::to(['/book/data-delete', 'id' => $sentence->id]) ?> "
+                       class="badge badge-pill badge-danger" style="cursor: pointer;"
+                       data-confirm="Уверены, что хотите удалить?">
+                        Удалить <i class="fas fa-trash"></i>
                     </a>
                 </div>
             </div>

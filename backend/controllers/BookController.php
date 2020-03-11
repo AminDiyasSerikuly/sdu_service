@@ -81,6 +81,40 @@ class BookController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+    public function actionDataDelete()
+    {
+        /** @var BookSentences $sentence */
+        $sentence_id = Yii::$app->request->get('id');
+        $sentence = BookSentences::find()->where(['id' => $sentence_id])->one();
+        $audio = $sentence->audio;
+        $audioName = substr($audio->name, 0, strlen($audio->name) - 4);
+        $deleteUrlAudio = Yii::getAlias('@frontend/web/audio' . DIRECTORY_SEPARATOR . $audio->name);
+        $deleteUrlText = Yii::getAlias('@frontend/web/audio' . DIRECTORY_SEPARATOR . $audioName . '.txt');
+        $sentence->is_deleted = false;
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if ($audio->delete() && $sentence->save(false)) {
+                if (file_exists($deleteUrlAudio) && file_exists($deleteUrlText)) {
+                    unlink($deleteUrlAudio);
+                    unlink($deleteUrlText);
+                }
+            }
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            Yii::$app->session->setFlash('danger', $e->getMessage());
+            return $this->redirect(Yii::$app->request->referrer);
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            Yii::$app->session->setFlash('danger', $e->getMessage());
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+
+
+    }
+
     public function actionCreate()
     {
         $model = new Book();
@@ -114,13 +148,15 @@ class BookController extends Controller
                 $order_num = 0;
                 foreach ($splittedText as $text) {
                     $text = mb_ereg_replace("[^A-Za-zА-Яа-я+әіңғүұқөһ+ӘІҢҒҮҰҚӨҺ/\s/-]", "", $text);
-                    $bookSentences = new BookSentences();
-                    $bookSentences->book_id = $model->id;
-                    $bookSentences->body = $text;
-                    $bookSentences->is_deleted = false;
-                    $bookSentences->order_num = $order_num;
-                    $bookSentences->save(false);
-                    $order_num += 1;
+                    if (strlen($text) <= 150) {
+                        $bookSentences = new BookSentences();
+                        $bookSentences->book_id = $model->id;
+                        $bookSentences->body = $text;
+                        $bookSentences->is_deleted = false;
+                        $bookSentences->order_num = $order_num;
+                        $bookSentences->save(false);
+                        $order_num += 1;
+                    }
                 }
                 $transaction->commit();
             } catch (\Exception $e) {
@@ -226,12 +262,21 @@ class BookController extends Controller
      */
     public function actionDelete($id)
     {
-        if ($this->findModel($id)->delete()) {
+        $book = $this->findModel($id);
+        if (!$book) {
+            Yii::$app->session->setFlash('danger', 'Такой книги не существует :(');
+        }
+        $bookDataDir = Yii::getAlias('@frontend/web/audio' . DIRECTORY_SEPARATOR . $book->name);
+        if ($book->delete()) {
+            try {
+                FileHelper::removeDirectory($bookDataDir);
+            } catch (ErrorException $e) {
+                Yii::$app->session->setFlash('danger', 'При удаление данных с сервера произошла ошибка! Ошибка: ' . $e->getMessage());
+            }
             Yii::$app->session->setFlash('success', 'Книга успешно удалена');
         } else {
             Yii::$app->session->setFlash('danger', 'Упс, произошла ошибка!');
         }
-
         return $this->redirect(['index']);
     }
 

@@ -215,6 +215,7 @@ var rec;
 var input;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext;
+var uploadedAudioDuration;
 
 
 $('#img-start').click(function() {
@@ -262,6 +263,9 @@ function showAudio(blob){
     var audioShow = document.getElementById('currentAudio');
     audioShow.src = url;
     hide_current_audio.show();
+    audioShow.onloadedmetadata = function() {
+        uploadedAudioDuration = audioShow.duration;
+    };
 }
 function saveInServer(blob){
     var url = URL.createObjectURL(blob);
@@ -280,37 +284,10 @@ function saveInServer(blob){
         contentType: false,
         processData: false,
         success: function(data){
-            // getAudios();
         }
     });
 }
-function getAudios(){
-    var formData = new FormData();
-    formData.append('name' , 'getAudio');
-    formData.append('book_id' , $("#book_id").val());
-    $.ajax({
-        url: "/audio/is-ajax",
-        type: "post",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            console.log(data.audioList);
-            var dataList =  (data.audioList);
-            jQuery.each(dataList , function(key,value){
-                var audioValue = document.getElementById("audioValue-" + key);
-                var textValue = $("#textValue-" + key);
-                var textValue2 = $("#textValue2-" + key);
-                textValue.attr("style" , "background-color: lightgreen");
-                textValue.attr("data-id" , "1");
-                textValue2.removeClass('hidden');
-                audioValue.src = value.audio_path;
-                userValue.textContent = value.username;
-            });
-        }
-    });
-}
-              function modal(){
+function modal(){
     $('.modal').modal('show');
         setTimeout(function () {
        	console.log('completed');
@@ -323,17 +300,23 @@ $('#right-button').click(function(){
     var rightButton = $('#right-button-value');
     var leftButton = $('#left-button-value');
     var error = false;
-    try {
-        rec.exportWAV(saveInServer)
+    if(uploadedAudioDuration <= 60){
+        try {
+            rec.exportWAV(saveInServer)
+        }
+        catch (e) {
+            alert('Чтобы перейти на следующий текст необходимо записать аудио на текущий');
+            error = true;
+            modal();
+        }
+        if(!error){
+            $('#show_load').removeClass('d-none');
+        }
     }
-    catch (e) {
-        alert('Чтобы перейти на следующий текст необходимо записать аудио на текущий');
-        error = true;
-        modal();
+    else{
+        alert('Длина аудиозаписи не должна превышать 60 секунд!!!');
     }
-    if(!error){
-        $('#show_load').removeClass('d-none');
-    }
+    
   
 
 });

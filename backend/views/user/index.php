@@ -78,9 +78,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'age',
                 'value' => function ($model) {
-                    return $model->age . '&nbsp;' .'лет';
+                    return $model->age . '&nbsp;' . 'лет';
                 },
                 'label' => 'Возраст',
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'read_sentences',
+                'value' => function ($model) {
+                    return Html::tag('span', count($model->audio), ['class' => 'badge badge-primary']);
+                },
                 'format' => 'raw',
             ],
             [
