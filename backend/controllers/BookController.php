@@ -263,6 +263,7 @@ class BookController extends Controller
     public function actionDelete($id)
     {
         $book = $this->findModel($id);
+        $bookSentences = $book->sentences;
         if (!$book) {
             Yii::$app->session->setFlash('danger', 'Такой книги не существует :(');
         }
@@ -270,6 +271,9 @@ class BookController extends Controller
         if ($book->delete()) {
             try {
                 FileHelper::removeDirectory($bookDataDir);
+                foreach ($bookSentences as $sentence) {
+                    $sentence->delete();
+                }
             } catch (ErrorException $e) {
                 Yii::$app->session->setFlash('danger', 'При удаление данных с сервера произошла ошибка! Ошибка: ' . $e->getMessage());
             }
