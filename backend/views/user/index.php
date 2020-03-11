@@ -14,13 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <!---->
-    <!--    <p>-->
-    <!--        <span>-->
-    <? //= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success', 'style' => 'pointer-events: none;color:gray;']) ?><!--</span>-->
-    <!--    </p>-->
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
