@@ -32,7 +32,7 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
         <div class="alert alert-warning">
             <strong>Для записи аудио нажмите на микрофон и записывайте аудио. <br>
                 Для сохранение аудио и показа следующего текста нажмите на стрелку на право..</strong>
-            <strong class="float-right">Осталось приложении: <?= count($sentences); ?></strong>
+            <strong class="float-right">Осталось предложении: <?= count($sentences); ?></strong>
         </div>
     <?php endif; ?>
     <div class="card-header">

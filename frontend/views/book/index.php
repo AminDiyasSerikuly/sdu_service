@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Audio;
 use common\models\User;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -13,9 +14,10 @@ $this->title = 'Книги';
 $this->params['breadcrumbs'][] = $this->title;
 $is_admin = User::find()->where(['id' => Yii::$app->user->getId()])->one();
 $is_admin = $is_admin ? $is_admin->role : null;
+$youHaveRead = Audio::find()->where(['user_id' => Yii::$app->user->getId()])->count();
 
 ?>
-<div style="margin-top:15px;" >
+<div style="margin-top:15px;">
     <?php if (Yii::$app->session->hasFlash('success')): ?>
         <div class="alert alert-success card">
             <strong><?= Yii::$app->session->getFlash('success'); ?></strong>
@@ -27,11 +29,12 @@ $is_admin = $is_admin ? $is_admin->role : null;
         </div>
     <?php endif; ?>
 </div>
-<div class="book-index p-t-3">
+<span class="d-block d-sm-block d-md-none d-lg-none d-xl-none badge badge-primary" style="width: 100%; font-size: 150%;">Scroll the table <i class="fa fa-arrow-right"></i> </span>
+<div>
+    <span class="badge badge-warning">Вы прочитали <?= $youHaveRead ?> предложении.</span>
+</div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <!--    <div class="card">-->
-    <!--        <div class="card-body">-->
+<div class="book-index p-t-3">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

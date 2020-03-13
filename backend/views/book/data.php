@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-header">
         <div class="row" style="font-weight: bold;">
             <div class="col-sm-3">
-                Приложение книги
+                Предложении книги
             </div>
             <div class="col-sm-4">
                 Аудиозапись

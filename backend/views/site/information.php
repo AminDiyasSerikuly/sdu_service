@@ -66,7 +66,7 @@ use common\models\BookSentences;
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Общее количество
-                            приложений
+                            предложении
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
@@ -95,7 +95,7 @@ use common\models\BookSentences;
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Количество прочитанных
-                            приложений
+                            предложении
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $readSentencesCount ?></div>
                     </div>

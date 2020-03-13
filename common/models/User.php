@@ -222,7 +222,7 @@ class User extends ActiveRecord implements IdentityInterface
             'username' => 'имя пользователя',
             'status' => 'статус',
             'role' => 'роль',
-            'read_sentences' => 'Кол-во прочитанных приложении',
+            'read_sentences' => 'Кол-во прочитанных предложении',
             'created_at' => 'дата создание',
             'updated_at' => 'дата изменение'
 

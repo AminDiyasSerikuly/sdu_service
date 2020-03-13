@@ -37,42 +37,48 @@ AppAsset::register($this);
             crossorigin="anonymous"></script>
 
     <?php $this->registerCssFile('/backend/web/dashboard/css/sb-admin-2.min.css'); ?>
-    <?php $this->registerCssFile('/backend/dashboard/vendor/fontawesome-free/css/all.css'); ?>
+    <?php $this->registerCssFile('/backend/web/dashboard/vendor/fontawesome-free/css/all.css'); ?>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class=" bg-light">
     <div class="container">
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>">
                 <img src="https://moodle.sdu.edu.kz/pluginfile.php/1/theme_moove/logo/1582111407/moodle-logo-white.png"
                      width="70" height="30" class="d-inline-block align-top" alt="">
-                <span style="font-size: 110%;">AudioRecording</span>
+                <span style="font-size: 110%;" class="d-none d-sm-none d-md-none d-lg-inline-block d-xl-inline-block">AudioRecording</span>
             </a>
-        </nav>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <?php if (Yii::$app->user->isGuest): ?>
-                <?= Html::a('Регистрация', Url::to(['/site/signup']), ['class' => 'btn btn-button']) ?>
-                <?= Html::a('Вход', Url::to(['/site/login']), ['class' => 'btn btn-button']) ?>
-            <?php else: ?>
-                <?php if (Yii::$app->user->can('admin')): ?>
-                    <?php echo Html::a('Панель управление', '/admin', ['class' => 'btn btn']) ?>
-                <?php endif; ?>
-                <?php echo Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                        '<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>' . 'Выход',
-                        [
-                            'class' => 'btn btn-button logout',
-                            'style' => 'font-size:100%;'
-                        ]
-                    )
-                    . Html::endForm();
-                ?>
-            <?php endif; ?>
-        </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+                </ul>
+                <ul class=" navbar-nav my-2 my-lg-0">
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <li> <?= Html::a('Регистрация', Url::to(['/site/signup']), ['class' => 'btn btn-button']) ?></li>
+                        <li><?= Html::a('Вход', Url::to(['/site/login']), ['class' => 'btn btn-button']) ?></li>
+                    <?php else: ?>
+                        <?php if (Yii::$app->user->can('admin')): ?>
+                            <li><?php echo Html::a('Панель управление', '/admin', ['class' => 'btn btn']) ?></li>
+                        <?php endif; ?>
+                        <li>  <?php echo Html::beginForm(['/site/logout'], 'post')
+                                . Html::submitButton(
+                                    'Выход',
+                                    [
+                                        'class' => 'btn btn-button logout',
+                                        'style' => 'font-size:100%;'
+                                    ]
+                                )
+                                . Html::endForm();
+                            ?></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </nav>
     </div>
 </nav>
 
@@ -92,3 +98,10 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+
+<style>
+    .grid-view {
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+</style>
