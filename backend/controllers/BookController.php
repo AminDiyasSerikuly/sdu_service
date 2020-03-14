@@ -142,13 +142,13 @@ class BookController extends Controller
 
                 $file_content = file_get_contents(Yii::getAlias('@frontend/web/img/image_uploads') . DIRECTORY_SEPARATOR . $book_file->name);
                 $splittedText = $this->multiexplode(array(".", "?", "!"), $file_content);
-                if (($key = array_search('', $splittedText)) !== false) {
-                    unset($splittedText[$key]);
-                }
+                $skipKeys = array_keys($splittedText, '');
+                $skipKeys2 = array_keys($splittedText, ' ');
+                $skipKeys = array_merge($skipKeys, $skipKeys2);
                 $order_num = 0;
-                foreach ($splittedText as $text) {
+                foreach ($splittedText as $textKey => $text) {
                     $text = mb_ereg_replace("[^A-Za-zА-Яа-я+әіңғүұқөһ+ӘІҢҒҮҰҚӨҺ/\s/-]", "", $text);
-                    if (strlen($text) <= 150) {
+                    if (strlen($text) <= 150 && !in_array($textKey, $skipKeys)) {
                         $bookSentences = new BookSentences();
                         $bookSentences->book_id = $model->id;
                         $bookSentences->body = $text;
