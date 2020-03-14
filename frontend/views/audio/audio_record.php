@@ -308,16 +308,17 @@ $('#right-button').click(function(){
                   rec.exportWAV(saveInServer)
              }
              catch (e) {
-                 alert();
+                 alert('Произошла ошибка');
              }
+              $('#show_load').removeClass('d-none');
         }
         else{
             alert('Длина аудиозаписи не должна превышать 60 секунд!!!');
         }
     }else{
-          $('#show_load').addClass('d-none');
         alert('Чтобы перейти на следующий текст необходимо записать аудио на текущий');
     }
+     
 });
 JS;
 
