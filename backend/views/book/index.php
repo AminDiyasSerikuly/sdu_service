@@ -17,9 +17,10 @@ $is_admin = $is_admin ? $is_admin->role : null;
 ?>
 <div class="book-index">
     <h1><?= Html::encode($this->title) ?></h1>
+    <span class="d-block d-sm-block d-md-none d-lg-none d-xl-none badge badge-primary" style="width: 100%; font-size: 90%;">You can scroll table <i class="fa fa-arrow-right"></i> </span>
     <?php if (Yii::$app->user->can('admin')): ?>
         <p>
-            <?= Html::a('Добавить книги', Url::toRoute(['book/create']), ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Добавить книги', Url::toRoute(['book/create']), ['class' => 'btn btn-success', 'style' => 'margin-top:10px;']) ?>
         </p>
     <?php endif; ?>
     <?= GridView::widget([

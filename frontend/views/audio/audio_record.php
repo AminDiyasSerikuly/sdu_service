@@ -3,7 +3,6 @@
 
 use common\models\User;
 
-Yii::$app->cdn->get('font-awesome')->register();
 $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
 
 ?>
@@ -32,7 +31,8 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
         <div class="alert alert-warning">
             <strong>Для записи аудио нажмите на микрофон и записывайте аудио. <br>
                 Для сохранение аудио и показа следующего текста нажмите на стрелку на право..</strong>
-            <strong class="float-right">Осталось предложении: <?= count($sentences); ?></strong>
+            <strong class="float-right badge badge-primary mt-3 mt-sm-3 mt-md-3 mt-lg-0 mt-xl-0">Осталось
+                предложении: <?= count($sentences); ?></strong>
         </div>
     <?php endif; ?>
     <div class="card-header">
@@ -59,13 +59,13 @@ $user = User::find()->where(['id' => Yii::$app->user->getId()])->one();
                         <div id="formats">
                         </div>
                     </div>
-                    <div class="col-sm-1">
-                        <i class="fa fa-arrow-right awesome-style" id="right-button"></i>
+                    <div class="col-sm-1 mt-5 mt-sm-5 mt-md-0 mt-lg-0 mt-xl-0">
+                        <i class="fas fa-arrow-right awesome-style" id="right-button"></i>
                         <input type="hidden" value="0" id="right-button-value">
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 10px;" id="current_audio_card">
+                <div class="row" style="margin-top: 30px;" id="current_audio_card">
                     <div id="current_audio" class="audio col-8  offset-2">
                         <audio id="currentAudio" preload="metadata">
                         </audio>
@@ -172,14 +172,14 @@ $css = <<<CSS
     }
     .awesome-style{
         font-size: 3rem;
-        font-weight: lighter;
         color: lightgreen;
         cursor: pointer;
-        width: 3rem;
-        height: 3rem;
+        padding: 0.2rem;
+       
     }
      .awesome-style:hover{
-        border-radius: 50%;
+        border-radius: 10%;
+       
         background-color: #2b669a;
        
      }
@@ -300,25 +300,24 @@ $('#right-button').click(function(){
     var rightButton = $('#right-button-value');
     var leftButton = $('#left-button-value');
     var error = false;
-    if(uploadedAudioDuration <= 60){
-        try {
-            rec.exportWAV(saveInServer)
-        }
-        catch (e) {
-            alert('Чтобы перейти на следующий текст необходимо записать аудио на текущий');
-            error = true;
-            modal();
-        }
-        if(!error){
-            $('#show_load').removeClass('d-none');
-        }
-    }
-    else{
-        alert('Длина аудиозаписи не должна превышать 60 секунд!!!');
-    }
+    console.log(uploadedAudioDuration);
     
-  
-
+    if(typeof uploadedAudioDuration != 'undefined' ){
+        if(uploadedAudioDuration <= 60){
+             try {
+                  rec.exportWAV(saveInServer)
+             }
+             catch (e) {
+                 alert();
+             }
+        }
+        else{
+            alert('Длина аудиозаписи не должна превышать 60 секунд!!!');
+        }
+    }else{
+          $('#show_load').addClass('d-none');
+        alert('Чтобы перейти на следующий текст необходимо записать аудио на текущий');
+    }
 });
 JS;
 

@@ -378,4 +378,8 @@ AppAsset::register($this);
         color: red;
     }
 
+    .grid-view {
+        overflow-y: auto;
+        overflow-x: auto;
+    }
 </style>

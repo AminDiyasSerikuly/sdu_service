@@ -29,7 +29,8 @@ $youHaveRead = Audio::find()->where(['user_id' => Yii::$app->user->getId()])->co
         </div>
     <?php endif; ?>
 </div>
-<span class="d-block d-sm-block d-md-none d-lg-none d-xl-none badge badge-primary" style="width: 100%; font-size: 150%;">Scroll the table <i class="fa fa-arrow-right"></i> </span>
+    <span class="d-block d-sm-block d-md-none d-lg-none d-xl-none badge badge-primary text-center"
+          style="width: 100%; font-size: 100%;">You can scroll table <i class="fa fa-arrow-right"></i> </span>
 <div>
     <span class="badge badge-warning">Вы прочитали <?= $youHaveRead ?> предложении.</span>
 </div>
