@@ -2,10 +2,13 @@
 
 use common\models\BookSentences;
 use common\models\User;
+use yii\data\Pagination;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 /** @var BookSentences $wholeSentences */
+/** @var Pagination $pages */
 $readSentences = count($sentences);
 $wholeSentences = count($wholeSentences);
 $restSentences = ($wholeSentences - $readSentences);
@@ -100,6 +103,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach; ?>
     </div>
 </div>
+<?= LinkPager::widget([
+    'pagination' => $pages,
+]);
+?>
 
 
 

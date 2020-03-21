@@ -14,6 +14,7 @@ use common\models\Book;
 use common\models\BookSearch;
 use yii\base\ErrorException;
 use yii\base\Model;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
@@ -367,13 +368,22 @@ class BookController extends Controller
         $model = $this->findModel($id);
         $sentences = BookSentences::find()->where(['book_sentences.book_id' => $id])
             ->andWhere(['is_deleted' => true])
-            ->innerJoinWith('audio')->orderBy(['audio.created_at' => SORT_DESC])->all();
+            ->innerJoinWith('audio')->orderBy(['audio.created_at' => SORT_DESC]);
+
+        $countQuery = clone $sentences;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+
+        $sentences = $sentences->offset($pages->offset)
+            ->limit(10)
+            ->all();
+
 
         $wholeSentences = BookSentences::find()->where(['book_sentences.book_id' => $id])->all();
 
         return $this->render('data', [
             'sentences' => $sentences,
             'wholeSentences' => $wholeSentences,
+            'pages' => $pages,
         ]);
     }
 

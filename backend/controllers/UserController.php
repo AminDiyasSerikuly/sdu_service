@@ -40,6 +40,8 @@ class UserController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
+
+
         return $this->render('index', [
             'model' => $model,
             'searchModel' => $searchModel,
