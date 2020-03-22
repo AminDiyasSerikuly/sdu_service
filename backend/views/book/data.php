@@ -109,15 +109,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endforeach; ?>
-        <div class="card-body certain-pagination">
-            <?= LinkPager::widget([
-                'pagination' => $pages,
-            ]); ?>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-body certain-pagination">
+                    <?= LinkPager::widget([
+                        'pagination' => $pages,
+                    ]); ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <style>
-    .certain-pagination{
+    .certain-pagination {
         overflow-y: auto;
         overflow-x: auto;
     }
