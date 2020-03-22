@@ -370,11 +370,13 @@ class BookController extends Controller
             ->andWhere(['is_deleted' => true])
             ->innerJoinWith('audio')->orderBy(['audio.created_at' => SORT_DESC]);
 
+        $readSentences = $sentences->all();
+
         $countQuery = clone $sentences;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
 
         $sentences = $sentences->offset($pages->offset)
-            ->limit(10)
+            ->limit($pages->limit)
             ->all();
 
 
@@ -382,6 +384,7 @@ class BookController extends Controller
 
         return $this->render('data', [
             'sentences' => $sentences,
+            'readSentences' => $readSentences,
             'wholeSentences' => $wholeSentences,
             'pages' => $pages,
         ]);

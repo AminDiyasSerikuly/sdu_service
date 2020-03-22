@@ -9,7 +9,9 @@ use yii\widgets\LinkPager;
 
 /** @var BookSentences $wholeSentences */
 /** @var Pagination $pages */
-$readSentences = count($sentences);
+
+$counter = $pages->offset + 1;
+$readSentences = count($readSentences);
 $wholeSentences = count($wholeSentences);
 $restSentences = ($wholeSentences - $readSentences);
 $this->title = 'Книги';
@@ -40,6 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="table">
+    <div>
+        Показаны записи <?= $pages->offset + 1 ?> - <?= ($pages->offset) + count($sentences) ?> из <?= $readSentences ?>
+        .
+    </div>
     <div class="card" style=" overflow-y: auto; overflow-x: auto;">
         <div class="card-header">
             <div class="row" style="font-weight: bold;">
@@ -71,6 +77,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <p>
                                 <?= $sentence->body ?>
                             </p>
+                            <p class="p-0 m-0"><span
+                                        class="float-right badge badge-secondary">&#8470; <?= $counter++; ?></span></p>
                         </div>
                     </div>
                     <div class="col-sm-4 col-md-5 col-lg-4 col-xl-4 col-12 text-center">

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\BookSentences;
 use common\models\Book;
+use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -83,6 +84,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $allUserCount = User::find()->where(['status' => User::STATUS_ACTIVE])->count();
         $allBookCount = Book::find()->count();
         $readBookCount = Book::find()->where(['is_read' => true])->count();
         $allSentences = BookSentences::find()->count();
@@ -90,6 +92,7 @@ class SiteController extends Controller
         $sizeAudioText = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/audio')));
         $sizeBook = $this->convert($this->folderSize(Yii::getAlias('@frontend/web/img/image_uploads')));
         return $this->render('information', [
+            'allUserCount' => $allUserCount,
             'allBookCount' => $allBookCount,
             'readBookCount' => $readBookCount,
             'allSentences' => $allSentences,
