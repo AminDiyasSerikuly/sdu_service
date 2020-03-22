@@ -109,9 +109,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endforeach; ?>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card-body certain-pagination">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 certain-pagination">
                     <?= LinkPager::widget([
                         'pagination' => $pages,
                     ]); ?>
