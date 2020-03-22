@@ -109,12 +109,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         <?php endforeach; ?>
+        <div class="card-body">
+            <?= LinkPager::widget([
+                'pagination' => $pages,
+            ]); ?>
+        </div>
     </div>
 </div>
-<?= LinkPager::widget([
-    'pagination' => $pages,
-]);
-?>
-
 
 
