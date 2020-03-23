@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model) {
                         return Html::a('<span class="fa fa-eye"></span>',
-                            Url::to(['user/read-book', 'user_id' => $model->id]), [
+                            Url::to(['user/read-book', 'id' => $model->id]), [
                             'title' => 'Full Details',
                         ]);
                     }

@@ -237,7 +237,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getFullname()
     {
-        $user = User::find('id')->one();
+        $user = User::findOne($this->id);
         return $user->username;
     }
 }
