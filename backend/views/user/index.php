@@ -3,6 +3,7 @@
 use common\models\User;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
@@ -14,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <span class="d-block d-sm-block d-md-none d-lg-none d-xl-none badge badge-primary" style="width: 100%; font-size: 90%;">You can scroll table <i class="fa fa-arrow-right"></i> </span>
+    <span class="d-block d-sm-block d-md-none d-lg-none d-xl-none badge badge-primary"
+          style="width: 100%; font-size: 90%;">You can scroll table <i class="fa fa-arrow-right"></i> </span>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -94,10 +96,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'date',
                 'filter' => false,
             ],
-
-
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="fa fa-eye"></span>',
+                            Url::to(['user/read-book', 'user_id' => $model->id]), [
+                            'title' => 'Full Details',
+                        ]);
+                    }
+                ],
             ],
         ],
     ]); ?>

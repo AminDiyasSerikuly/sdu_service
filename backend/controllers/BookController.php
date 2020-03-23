@@ -365,10 +365,12 @@ class BookController extends Controller
     public function actionData()
     {
         $id = Yii::$app->request->get('id');
-        $model = $this->findModel($id);
+
         $sentences = BookSentences::find()->where(['book_sentences.book_id' => $id])
             ->andWhere(['is_deleted' => true])
             ->innerJoinWith('audio')->orderBy(['audio.created_at' => SORT_DESC]);
+
+
 
         $readSentences = $sentences->all();
 

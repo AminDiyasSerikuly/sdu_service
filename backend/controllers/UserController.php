@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use common\models\BookSentences;
 use Yii;
 use common\models\User;
 use common\models\UserSearch;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,8 +40,6 @@ class UserController extends Controller
         $model = new  User();
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-
 
 
         return $this->render('index', [
@@ -128,5 +128,40 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionReadBook()
+    {
+        $user_id = Yii::$app->request->get('user_id');
+
+        $sentences = BookSentences::find()
+            ->innerJoinWith('audio')
+            ->andWhere(['audio.user_id' => $user_id])
+            ->andWhere(['book_sentences.is_deleted' => true])
+            ->orderBy(['audio.created_at' => SORT_DESC]);
+
+
+        $readSentences = $sentences->all();
+
+        $countQuery = clone $sentences;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+
+        $sentences = $sentences->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+
+        $wholeSentences = BookSentences::find()
+            ->innerJoinWith('audio')
+            ->where(['audio.user_id' => $user_id])->all();
+
+
+        return $this->render('/book/data', [
+            'sentences' => $sentences,
+            'readSentences' => $readSentences,
+            'wholeSentences' => $wholeSentences,
+            'pages' => $pages,
+        ]);
     }
 }
