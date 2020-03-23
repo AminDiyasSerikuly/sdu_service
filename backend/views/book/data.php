@@ -38,14 +38,16 @@ $this->params['breadcrumbs'][] = $this->title;
         <span class="badge badge-warning">Осталось: <?= $restSentences ?></span>
     <?php endif; ?>
 </div>
-<div style="margin-top: 10px;">
-    <div class="text-right" style="margin-bottom: 10px;color: white;">
-        <a class="btn btn-success"
-           href="<?= Url::to(['/book/record-audio', 'id' => Yii::$app->request->get('id')]) ?>">
-            Просмотр книги
-        </a>
+<?php if (Yii::$app->controller->id == 'book'): ?>
+    <div style="margin-top: 10px;">
+        <div class="text-right" style="margin-bottom: 10px;color: white;">
+            <a class="btn btn-success"
+               href="<?= Url::to(['/book/record-audio', 'id' => Yii::$app->request->get('id')]) ?>">
+                Просмотр книги
+            </a>
+        </div>
     </div>
-</div>
+<?php endif; ?>
 <div class="table">
     <div>
         Показаны записи <?= $pages->offset + 1 ?> - <?= ($pages->offset) + count($sentences) ?> из <?= $readSentences ?>
@@ -107,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="<?= Url::to(['/book/data-delete', 'id' => $sentence->id]) ?> "
                            class="badge badge-pill badge-danger" style="cursor: pointer;"
                            data-confirm="Уверены, что хотите удалить?">
-                            <span class="d-inline-block d-sm-none d-md-none d-lg-inline-block d-xl-inline-block">Удалить &emsp;</span>
+                            <span class="d-inline-block d-sm-none d-md-none d-lg-inline-block d-xl-inline-block" >Удалить &emsp;</span>
                             <i class="fas fa-trash"></i>
                         </a>
                     </div>
