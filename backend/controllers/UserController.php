@@ -134,6 +134,7 @@ class UserController extends Controller
     public function actionReadBook()
     {
         $user_id = Yii::$app->request->get('user_id');
+        $model = $this->findModel($user_id);
 
         $sentences = BookSentences::find()
             ->innerJoinWith('audio')
@@ -162,6 +163,7 @@ class UserController extends Controller
             'readSentences' => $readSentences,
             'wholeSentences' => $wholeSentences,
             'pages' => $pages,
+            'model' => $model,
         ]);
     }
 }

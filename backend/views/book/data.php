@@ -15,7 +15,7 @@ $readSentences = count($readSentences);
 $wholeSentences = count($wholeSentences);
 $restSentences = ($wholeSentences - $readSentences);
 $this->title = 'Книги';
-if ($restSentences == 0) {
+if ($restSentences == 0 && Yii::$app->controller->id == 'book') {
     $this->title = 'Книги полностью прочитано';
 }
 $this->params['breadcrumbs'][] = $this->title;
@@ -29,9 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 </script>
 <h1 class="<?= !$restSentences ? 'text-success' : '' ?>"><?= Html::encode($this->title) ?></h1>
 <div>
-    <span class="badge badge-primary">Все: <?= $wholeSentences ?></span>
-    <span class="badge badge-success">Прочитано: <?= $readSentences ?></span>
-    <span class="badge badge-warning">Осталось: <?= $restSentences ?></span>
+    <?php if (Yii::$app->controller->id == 'book'): ?>
+        <span class="badge badge-primary">Все: <?= $wholeSentences ?></span>
+    <?php endif; ?>
+    <span class="badge badge-success">Прочитано: <?= $readSentences . (!(Yii::$app->controller->id == 'book') ?
+            ' через ' . $model->fullname : '') ?> </span>
+    <?php if (Yii::$app->controller->id == 'book'): ?>
+        <span class="badge badge-warning">Осталось: <?= $restSentences ?></span>
+    <?php endif; ?>
 </div>
 <div style="margin-top: 10px;">
     <div class="text-right" style="margin-bottom: 10px;color: white;">

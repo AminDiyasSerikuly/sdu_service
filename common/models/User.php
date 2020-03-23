@@ -24,6 +24,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property integer $age
  * @property integer $read_sentences
+ * @property string fullname
  * @property string $password write-only password
  * @var Audio audio
  */
@@ -232,5 +233,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAudio()
     {
         return $this->hasMany(Audio::className(), ['user_id' => 'id']);
+    }
+
+    public function getFullname()
+    {
+        $user = User::find('id')->one();
+        return $user->username;
     }
 }
