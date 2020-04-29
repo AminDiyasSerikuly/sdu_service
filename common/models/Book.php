@@ -104,8 +104,8 @@ class Book extends \yii\db\ActiveRecord
     public function getReadPercentage()
     {
         $readPercentage = 0;
-        $allSentences = $this->hasMany(BookSentences::className(), ['book_id' => 'id'])->count();
-        $readSentences = $this->hasMany(BookSentences::className(), ['book_id' => 'id'])->andWhere(['is_deleted' => true])->count();
+        $allSentences = BookSentences::find()->where(['book_id' => $this->id])->count();
+        $readSentences = BookSentences::find()->where(['book_id' => $this->id])->andWhere(['is_deleted' => true])->count();
         $readPercentage = $allSentences != 0 ? ($readSentences / $allSentences) * 100 : 0;
         return $readPercentage;
     }
