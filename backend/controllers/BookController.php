@@ -427,6 +427,8 @@ class BookController extends Controller
 
     private function archiveFile($id, $single = false)
     {
+
+        ini_set('max_execution_time', '1200');
         /** @var BookSentences $sentence */
         /** @var Book $book */
         $array = [];
