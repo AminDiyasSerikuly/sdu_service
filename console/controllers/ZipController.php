@@ -8,7 +8,7 @@ use yii\helpers\FileHelper;
 use yii\web\Controller;
 use ZipArchive;
 
-class ZipAudioDirectoryController extends Controller
+class ZipController extends Controller
 {
     public function actionZipAllBookDirectory()
     {
