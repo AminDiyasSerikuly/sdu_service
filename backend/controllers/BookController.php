@@ -395,14 +395,30 @@ class BookController extends Controller
 
     public function actionDataDownload()
     {
+        /** @var Book $book */
         $id = Yii::$app->request->get('id');
-        $zipArray = $this->archiveFile($id);
-        if (!$zipArray) {
+        $book = Book::find()->where(['id' => $id])->one();
+        $bookSentences = $book ? $book->sentences : NULL;
+        $dir_name = $book ? $book->name : NULL;
+        if (isset($bookSentences)) {
             Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
             return $this->redirect(Yii::$app->request->referrer);
         }
+        if ($dir_name) {
+            Yii::$app->session->setFlash('danger', 'Упс, книга не найдена :(');
+            return $this->redirect(Yii::$app->request->referrer);
+        }
 
-        $this->zip_force_download($zipArray['zipName'], $zipArray['zipPath']);
+        $dir_root_path = Yii::getAlias('@frontend/web/audio/cron_zip_files');
+        $dir_path = $dir_root_path . DIRECTORY_SEPARATOR . $dir_name . '.zip';
+
+//        $zipArray = $this->archiveFile($id);
+//        if (!$zipArray) {
+//            Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
+//            return $this->redirect(Yii::$app->request->referrer);
+//        }
+
+        $this->zip_force_download($dir_name, $dir_path);
     }
 
     public function actionDataDownloadSingle()
@@ -428,7 +444,7 @@ class BookController extends Controller
     private function archiveFile($id, $single = false)
     {
 
-        ini_set('max_execution_time', '1200');
+//        ini_set('max_execution_time', '1200');
         /** @var BookSentences $sentence */
         /** @var Book $book */
         $array = [];
