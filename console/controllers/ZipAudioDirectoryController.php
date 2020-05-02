@@ -48,8 +48,9 @@ class ZipAudioDirectoryController extends Controller
             }
             $zip->close();
         }
-
-
+    }
+    public function actionZip(){
+        exit('Zip');
     }
 
 }
