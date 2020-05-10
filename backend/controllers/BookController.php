@@ -521,7 +521,7 @@ class BookController extends Controller
     function zip_force_download($zip_name, $zip_path)
     {
         header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=" . $zip_name);
+        header("Content-Disposition: attachment; filename=" . $zip_name . '.zip');
         header("Content-length: " . filesize($zip_path));
         header("Pragma: no-cache");
         header("Expires: 0");
