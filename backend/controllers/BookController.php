@@ -400,11 +400,11 @@ class BookController extends Controller
         $book = Book::find()->where(['id' => $id])->one();
         $bookSentences = $book ? $book->sentences : NULL;
         $dir_name = $book ? $book->name : NULL;
-        if (isset($bookSentences)) {
+        if (!isset($bookSentences)) {
             Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
             return $this->redirect(Yii::$app->request->referrer);
         }
-        if ($dir_name) {
+        if (!$dir_name) {
             Yii::$app->session->setFlash('danger', 'Упс, книга не найдена :(');
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -412,13 +412,14 @@ class BookController extends Controller
         $dir_root_path = Yii::getAlias('@frontend/web/audio/cron_zip_files');
         $dir_path = $dir_root_path . DIRECTORY_SEPARATOR . $dir_name . '.zip';
 
+
 //        $zipArray = $this->archiveFile($id);
 //        if (!$zipArray) {
 //            Yii::$app->session->setFlash('danger', 'Упс, приложение не найдено :(');
 //            return $this->redirect(Yii::$app->request->referrer);
 //        }
-
         $this->zip_force_download($dir_name, $dir_path);
+
     }
 
     public function actionDataDownloadSingle()
@@ -520,7 +521,7 @@ class BookController extends Controller
     function zip_force_download($zip_name, $zip_path)
     {
         header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=" . $zip_name . '.zip');
+        header("Content-Disposition: attachment; filename=" . $zip_name);
         header("Content-length: " . filesize($zip_path));
         header("Pragma: no-cache");
         header("Expires: 0");
